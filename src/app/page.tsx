@@ -1,7 +1,6 @@
 import Categories from "@/components/homepage/Categories";
 import FAQ from "@/components/homepage/FAQ";
 import FeaturedBooks from "@/components/homepage/FeaturedBooks";
-import Footer from "@/components/homepage/Footer";
 import Hero from "@/components/homepage/Hero";
 import LatestBooks from "@/components/homepage/LatestBooks";
 import Newsletter from "@/components/homepage/Newsletter";
@@ -21,7 +20,6 @@ export default function Home() {
       <Testimonials />
       <Newsletter />
       <FAQ />
-      <Footer />
     </div>
   );
 }

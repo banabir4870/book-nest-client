@@ -21,7 +21,7 @@ const Navbar = () => {
           <div>
             <h2 className="text-2xl font-extrabold">
             <span className={`${cinzel.className}`}>Book</span>
-              <span className={`${cinzel.className}`}>Nest</span>
+              <span className={`${cinzel.className} text-orange-400`}>Nest</span>
             </h2>
 
             <p className="-mt-1 text-xs text-black/80">
@@ -84,14 +84,14 @@ const Navbar = () => {
           {!isLoggedIn ? (
             <>
               <Link
-                href="/login"
+                href="/auth/login"
                 className={`${cinzel.className} rounded-lg border border-[#3b1a08] px-5 py-2 font-semibold text-[#3b1a08] transition hover:bg-blue-50`}
               >
                 Login
               </Link>
 
               <Link
-                href="/register"
+                href="/auth/register"
                 className={`${cinzel.className} rounded-lg bg-[#3b1a08] px-5 py-2 font-semibold text-white transition hover:bg-[#2a1206]`}
               >
                 Register
