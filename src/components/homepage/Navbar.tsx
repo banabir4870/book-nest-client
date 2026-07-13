@@ -40,7 +40,7 @@ const Navbar = () => {
           </Link>
 
           <Link
-            href="/books"
+            href="/all-books"
             className={`${cinzel.className} transition text-xl hover:text-[#3b1a08] hover:font-extrabold`}
           >
             Explore Books

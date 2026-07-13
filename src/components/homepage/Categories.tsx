@@ -98,7 +98,7 @@ const Categories = () => {
             return (
               <Link
                 key={category.id}
-                href={`/books?category=${encodeURIComponent(category.name)}`}
+                href={`/all-books?category=${encodeURIComponent(category.name)}`}
                 className="group rounded-3xl border border-gray-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:border-blue-500 hover:shadow-xl"
               >
                 <div

@@ -222,7 +222,7 @@ export default function Hero() {
               }}
             >
               <Link
-                href="/books"
+                href="/all-books"
                 className="group relative flex overflow-hidden rounded-xl bg-blue-600 px-7 py-4 font-semibold text-white"
               >
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition duration-1000 group-hover:translate-x-full" />

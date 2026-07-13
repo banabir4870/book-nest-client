@@ -73,7 +73,7 @@ const Footer = () => {
 
                             <li>
                                 <Link
-                                    href="/books"
+                                    href="/all-books"
                                     className="transition hover:text-orange-400"
                                 >
                                     Explore Books

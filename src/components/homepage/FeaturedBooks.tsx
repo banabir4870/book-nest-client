@@ -290,7 +290,7 @@ const FeaturedBooks = () => {
           }}
         >
           <Link
-            href={`/books/${book.id}`}
+            href={`/all-books/${book.id}`}
             className="group/button relative mt-6 flex w-full items-center justify-center overflow-hidden rounded-xl bg-blue-600 py-3 font-semibold text-white"
           >
             <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition duration-1000 group-hover/button:translate-x-full" />
@@ -331,7 +331,7 @@ const FeaturedBooks = () => {
             }}
           >
             <Link
-              href="/books"
+              href="/all-books"
               className="group relative inline-flex items-center gap-3 overflow-hidden rounded-2xl bg-blue-600 px-8 py-4 font-semibold text-white shadow-lg transition-shadow duration-300 hover:shadow-blue-300/40"
             >
               {/* Shine Effect */}
