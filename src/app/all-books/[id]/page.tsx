@@ -10,7 +10,7 @@ import RelatedBooks from "@/components/book-details/RelatedBooks";
 import { cinzel } from "@/app/fonts";
 import { Book } from "@/data/booksData";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://book-nest-server-delta.vercel.app";
 
 type Props = {
   params: Promise<{

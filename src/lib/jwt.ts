@@ -13,7 +13,7 @@
 
 import { authClient } from "./auth-client";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://book-nest-server-delta.vercel.app";
 
 export async function ensureJWT(): Promise<void> {
   // Get the current Better Auth session (same-origin call to Next.js /api/auth)

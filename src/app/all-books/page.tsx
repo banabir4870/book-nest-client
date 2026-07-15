@@ -8,7 +8,7 @@ import { cinzel } from "@/app/fonts";
 import { Skeleton } from "@heroui/react";
 import { Book } from "@/data/booksData";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://book-nest-server-delta.vercel.app";
 
 export default function ExploreBooksPage() {
   const [books, setBooks] = useState<Book[]>([]);

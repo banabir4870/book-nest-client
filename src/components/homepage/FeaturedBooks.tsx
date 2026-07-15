@@ -67,7 +67,7 @@ const FeaturedBooks = () => {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const res = await fetch("http://localhost:5000/books?sort=rating&limit=8");
+        const res = await fetch("https://book-nest-server-delta.vercel.app/books?sort=rating&limit=8");
         if (res.ok) {
           const data = await res.json();
           setBooks(data.books || []);

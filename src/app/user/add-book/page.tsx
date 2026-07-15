@@ -23,7 +23,7 @@ import {
   FaAlignLeft,
 } from "react-icons/fa";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://book-nest-server-delta.vercel.app";
 
 const CATEGORIES = [
   "Programming",

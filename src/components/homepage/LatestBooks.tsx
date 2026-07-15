@@ -31,7 +31,7 @@ const LatestBooks = () => {
   useEffect(() => {
     const fetchLatest = async () => {
       try {
-        const res = await fetch("http://localhost:5000/books?sort=newest&limit=3");
+        const res = await fetch("https://book-nest-server-delta.vercel.app/books?sort=newest&limit=3");
         if (res.ok) {
           const data = await res.json();
           setBooks(data.books || []);
