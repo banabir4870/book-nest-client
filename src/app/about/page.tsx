@@ -44,7 +44,7 @@ export default function AboutPage() {
             <p className="mt-8 text-lg leading-9 text-gray-200">
               BookNest is more than just an online bookstore. We are a community
               of passionate readers dedicated to making books accessible,
-              affordable, and enjoyable for everyone. Whether you're searching
+              affordable, and enjoyable for everyone. Whether you&apos;re searching
               for timeless classics, bestselling novels, or educational
               resources, BookNest is your trusted reading companion.
             </p>
