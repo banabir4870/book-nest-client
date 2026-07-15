@@ -9,67 +9,53 @@ import {
   FaBarcode,
   FaCalendarAlt,
   FaLayerGroup,
-  FaWeightHanging,
-  FaRulerCombined,
 } from "react-icons/fa";
 
 type Props = {
   book: {
-    isbn: string;
-    language: string;
-    publisher: string;
-    published: number;
-    edition: string;
-    binding: string;
-    dimensions: string;
-    weight: string;
+    isbn?: string;
+    language?: string;
+    publisher?: string;
+    published?: number;
+    pages?: number;
+    category?: string;
   };
 };
 
-const specs = (book: Props["book"]) => [
-  {
-    icon: <FaBarcode />,
-    label: "ISBN",
-    value: book.isbn,
-  },
-  {
-    icon: <FaGlobe />,
-    label: "Language",
-    value: book.language,
-  },
-  {
-    icon: <FaBuilding />,
-    label: "Publisher",
-    value: book.publisher,
-  },
-  {
-    icon: <FaCalendarAlt />,
-    label: "Published",
-    value: book.published,
-  },
-  {
-    icon: <FaLayerGroup />,
-    label: "Edition",
-    value: book.edition,
-  },
-  {
-    icon: <FaBookOpen />,
-    label: "Binding",
-    value: book.binding,
-  },
-  {
-    icon: <FaRulerCombined />,
-    label: "Dimensions",
-    value: book.dimensions,
-  },
-  {
-    icon: <FaWeightHanging />,
-    label: "Weight",
-    value: book.weight,
-  },
-];
-
 const BookSpecification = ({ book }: Props) => {
+  const specs = [
+    {
+      icon: <FaBarcode />,
+      label: "ISBN",
+      value: book.isbn || "N/A",
+    },
+    {
+      icon: <FaGlobe />,
+      label: "Language",
+      value: book.language || "English",
+    },
+    {
+      icon: <FaBuilding />,
+      label: "Publisher",
+      value: book.publisher || "N/A",
+    },
+    {
+      icon: <FaCalendarAlt />,
+      label: "Published Year",
+      value: book.published || "N/A",
+    },
+    {
+      icon: <FaLayerGroup />,
+      label: "Pages",
+      value: book.pages || "N/A",
+    },
+    {
+      icon: <FaBookOpen />,
+      label: "Category",
+      value: book.category || "General",
+    },
+  ];
+
   return (
     <section className="mt-20">
 
@@ -95,7 +81,7 @@ const BookSpecification = ({ book }: Props) => {
 
       <div className="grid gap-6 md:grid-cols-2">
 
-        {specs(book).map((item, index) => (
+        {specs.map((item, index) => (
           <motion.div
             key={item.label}
             initial={{

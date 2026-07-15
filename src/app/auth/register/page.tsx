@@ -1,12 +1,135 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+
+import { Form } from "@heroui/react";
+
 import { cinzel } from "@/app/fonts";
+
 import { FaGoogle, FaUser } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { IoImageOutline } from "react-icons/io5";
+import { authClient } from "@/lib/auth-client";
+
+type RegisterForm = {
+  name: string;
+  email: string;
+  photo: string;
+  password: string;
+};
 
 export default function RegisterPage() {
+  const [formData, setFormData] = useState<RegisterForm>({
+    name: "",
+    email: "",
+    photo: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState<Partial<RegisterForm>>({});
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const validate = () => {
+    const newErrors: Partial<RegisterForm> = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Full name is required.";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)
+    ) {
+      newErrors.email = "Please enter a valid email.";
+    }
+
+    if (!formData.photo.trim()) {
+      newErrors.photo = "Photo URL is required.";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required.";
+    } else {
+      if (formData.password.length < 6) {
+        newErrors.password =
+          "Password must be at least 6 characters.";
+      } else if (!/[A-Z]/.test(formData.password)) {
+        newErrors.password =
+          "Password must contain at least one uppercase letter.";
+      } else if (!/[a-z]/.test(formData.password)) {
+        newErrors.password =
+          "Password must contain at least one lowercase letter.";
+      }
+    }
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const onSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (!validate()) {
+      alert("Please fix the errors.");
+      return;
+    }
+
+    const { data, error } = await authClient.signUp.email(
+      {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        image: formData.photo,
+      },
+      {
+        onSuccess: () => {
+          alert("Registration Successful!");
+        },
+
+        onError: (ctx) => {
+          alert(ctx.error.message);
+        },
+      }
+    );
+
+    setFormData({
+      name: "",
+      email: "",
+      photo: "",
+      password: "",
+    });
+
+    setErrors({});
+  };
+
+  const handleGoogleSignIn = async () => {
+        await authClient.signIn.social({
+            provider: "google",
+        });
+    };
+
   return (
     <section className="min-h-screen bg-[#f6f3ef] px-4 py-8 lg:px-8 lg:py-10">
       <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl overflow-hidden rounded-[32px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] lg:grid-cols-2">
@@ -14,6 +137,7 @@ export default function RegisterPage() {
         {/* Left Side */}
 
         <div className="relative hidden lg:block">
+
           <Image
             src="/image2.jpg"
             alt="BookNest"
@@ -22,7 +146,7 @@ export default function RegisterPage() {
             className="object-cover"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/35"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
 
           <div className="absolute inset-0 flex flex-col justify-center px-16 text-white">
 
@@ -43,8 +167,9 @@ export default function RegisterPage() {
             </h1>
 
             <p className="mt-8 max-w-lg text-lg leading-8 text-gray-200">
-              Create your BookNest account and unlock thousands of amazing
-              books, personalized recommendations, and your own reading library.
+              Create your BookNest account and unlock thousands of books,
+              personalized recommendations, exclusive collections, and your
+              own digital reading library.
             </p>
 
             <div className="mt-12 rounded-2xl border border-white/20 bg-white/10 p-6 backdrop-blur-md">
@@ -59,7 +184,48 @@ export default function RegisterPage() {
 
             </div>
 
+            <div className="mt-12 grid grid-cols-3 gap-5">
+
+              <div className="rounded-xl border border-white/20 bg-white/10 p-5 text-center backdrop-blur">
+
+                <h3 className="text-3xl font-bold text-orange-300">
+                  12K+
+                </h3>
+
+                <p className="mt-2 text-sm text-gray-200">
+                  Books
+                </p>
+
+              </div>
+
+              <div className="rounded-xl border border-white/20 bg-white/10 p-5 text-center backdrop-blur">
+
+                <h3 className="text-3xl font-bold text-orange-300">
+                  8K+
+                </h3>
+
+                <p className="mt-2 text-sm text-gray-200">
+                  Readers
+                </p>
+
+              </div>
+
+              <div className="rounded-xl border border-white/20 bg-white/10 p-5 text-center backdrop-blur">
+
+                <h3 className="text-3xl font-bold text-orange-300">
+                  4.9★
+                </h3>
+
+                <p className="mt-2 text-sm text-gray-200">
+                  Rating
+                </p>
+
+              </div>
+
+            </div>
+
           </div>
+
         </div>
 
         {/* Right Side */}
@@ -67,7 +233,6 @@ export default function RegisterPage() {
         <div className="flex items-center justify-center bg-[#fcfaf8] px-8 py-12 lg:px-14">
 
           <div className="w-full max-w-md rounded-3xl border border-gray-100 bg-white p-10 shadow-lg">
-
             {/* Logo */}
 
             <div className="text-center">
@@ -97,7 +262,10 @@ export default function RegisterPage() {
 
             {/* Form */}
 
-            <form className="mt-8 space-y-5">
+            <Form
+              onSubmit={onSubmit}
+              className="mt-8 space-y-5"
+            >
 
               {/* Name */}
 
@@ -107,17 +275,26 @@ export default function RegisterPage() {
                   Full Name
                 </label>
 
-                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 focus-within:border-[#3b1a08]">
+                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 transition focus-within:border-[#3b1a08] focus-within:ring-2 focus-within:ring-[#3b1a08]/20">
 
                   <FaUser className="text-gray-500" />
 
                   <input
+                    name="name"
                     type="text"
                     placeholder="Enter your full name"
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full bg-transparent px-3 py-4 outline-none"
                   />
 
                 </div>
+
+                {errors.name && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.name}
+                  </p>
+                )}
 
               </div>
 
@@ -129,21 +306,30 @@ export default function RegisterPage() {
                   Email Address
                 </label>
 
-                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 focus-within:border-[#3b1a08]">
+                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 transition focus-within:border-[#3b1a08] focus-within:ring-2 focus-within:ring-[#3b1a08]/20">
 
-                  <MdEmail className="text-xl text-gray-500" />
+                  <MdEmail className="text-lg text-gray-500" />
 
                   <input
+                    name="email"
                     type="email"
                     placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full bg-transparent px-3 py-4 outline-none"
                   />
 
                 </div>
 
+                {errors.email && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.email}
+                  </p>
+                )}
+
               </div>
 
-              {/* Photo */}
+              {/* Photo URL */}
 
               <div>
 
@@ -151,20 +337,28 @@ export default function RegisterPage() {
                   Photo URL
                 </label>
 
-                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 focus-within:border-[#3b1a08]">
+                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 transition focus-within:border-[#3b1a08] focus-within:ring-2 focus-within:ring-[#3b1a08]/20">
 
-                  <IoImageOutline className="text-xl text-gray-500" />
+                  <IoImageOutline className="text-lg text-gray-500" />
 
                   <input
+                    name="photo"
                     type="text"
                     placeholder="Paste your photo URL"
+                    value={formData.photo}
+                    onChange={handleChange}
                     className="w-full bg-transparent px-3 py-4 outline-none"
                   />
 
                 </div>
 
-              </div>
+                {errors.photo && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.photo}
+                  </p>
+                )}
 
+              </div>
               {/* Password */}
 
               <div>
@@ -173,29 +367,44 @@ export default function RegisterPage() {
                   Password
                 </label>
 
-                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 focus-within:border-[#3b1a08]">
+                <div className="flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 transition focus-within:border-[#3b1a08] focus-within:ring-2 focus-within:ring-[#3b1a08]/20">
 
-                  <RiLockPasswordFill className="text-xl text-gray-500" />
+                  <RiLockPasswordFill className="text-lg text-gray-500" />
 
                   <input
+                    name="password"
                     type="password"
                     placeholder="Create a password"
+                    value={formData.password}
+                    onChange={handleChange}
                     className="w-full bg-transparent px-3 py-4 outline-none"
                   />
 
                 </div>
 
+                {errors.password && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.password}
+                  </p>
+                )}
+
+                <p className="mt-2 text-xs text-gray-500">
+                  Password must contain at least 6 characters,
+                  one uppercase letter and one lowercase letter.
+                </p>
+
               </div>
 
-              {/* Register */}
+              {/* Submit Button */}
 
               <button
+                type="submit"
                 className={`${cinzel.className} w-full rounded-xl bg-[#3b1a08] py-4 text-lg font-semibold text-white transition hover:bg-[#2a1206]`}
               >
                 Create Account
               </button>
 
-            </form>
+            </Form>
 
             {/* Divider */}
 
@@ -211,9 +420,13 @@ export default function RegisterPage() {
 
             </div>
 
-            {/* Google */}
+            {/* Google Login */}
 
-            <button className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition hover:bg-gray-100">
+            <button
+              type="button"
+              className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition hover:bg-gray-100"
+              onClick={handleGoogleSignIn}
+            >
 
               <FaGoogle className="text-red-500" />
 
@@ -221,7 +434,7 @@ export default function RegisterPage() {
 
             </button>
 
-            {/* Login */}
+            {/* Login Link */}
 
             <p className="mt-8 text-center text-gray-600">
 
@@ -229,7 +442,7 @@ export default function RegisterPage() {
 
               <Link
                 href="/auth/login"
-                className="ml-2 font-semibold text-[#3b1a08] hover:text-orange-500"
+                className="ml-2 font-semibold text-[#3b1a08] transition hover:text-orange-500"
               >
                 Login
               </Link>
@@ -241,6 +454,8 @@ export default function RegisterPage() {
         </div>
 
       </div>
+
     </section>
+
   );
 }

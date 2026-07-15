@@ -9,21 +9,10 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import { cinzel } from "@/app/fonts";
+import { Book } from "@/data/booksData";
 
 type Props = {
-  book: {
-    title: string;
-    author: string;
-    category: string;
-    price: number;
-    rating: number;
-    language: string;
-    pages: number;
-    publisher: string;
-    published: number;
-    quantity: number;
-    description: string;
-  };
+  book: Book;
 };
 
 const BookInfo = ({ book }: Props) => {

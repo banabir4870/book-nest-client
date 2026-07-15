@@ -1,8 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { books } from "@/data/booksData";
-
 import BookGallery from "@/components/book-details/BookGallery";
 import BookInfo from "@/components/book-details/BookInfo";
 import BookSpecification from "@/components/book-details/BookSpecification";
@@ -10,6 +8,9 @@ import Reviews from "@/components/book-details/Reviews";
 import RelatedBooks from "@/components/book-details/RelatedBooks";
 
 import { cinzel } from "@/app/fonts";
+import { Book } from "@/data/booksData";
+
+const API_URL = "http://localhost:5000";
 
 type Props = {
   params: Promise<{
@@ -17,26 +18,46 @@ type Props = {
   }>;
 };
 
+async function getBook(idOrSlug: string): Promise<Book | null> {
+  try {
+    const res = await fetch(`${API_URL}/books/${idOrSlug}`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}
+
+async function getRelatedBooks(category: string, excludeId: string): Promise<Book[]> {
+  try {
+    const res = await fetch(
+      `${API_URL}/books/related/${encodeURIComponent(category)}?excludeId=${excludeId}`,
+      { cache: "no-store" }
+    );
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
 export default async function BookDetailsPage({
   params,
 }: Props) {
   const { id } = await params;
 
-  const book = books.find(
-    (item) => item.id === Number(id)
-  );
+  const book = await getBook(id);
 
   if (!book) {
     notFound();
   }
 
-  const relatedBooks = books
-    .filter(
-      (item) =>
-        item.category === book.category &&
-        item.id !== book.id
-    )
-    .slice(0, 4);
+  const relatedBooks = await getRelatedBooks(
+    book.category,
+    book.id
+  );
 
   const images = [
     book.image,
@@ -114,9 +135,11 @@ export default async function BookDetailsPage({
 
         <Reviews />
 
-        <RelatedBooks
-          books={relatedBooks}
-        />
+        {relatedBooks.length > 0 && (
+          <RelatedBooks
+            books={relatedBooks}
+          />
+        )}
 
       </section>
 

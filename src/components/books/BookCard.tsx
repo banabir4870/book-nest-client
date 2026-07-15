@@ -89,7 +89,7 @@ const BookCard = ({ book }: Props) => {
         {/* Button */}
 
         <Link
-          href={`/all-books/${book.id}`}
+          href={`/all-books/${book.slug || book.id}`}
           className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-[#3b1a08] py-3 font-semibold text-white transition duration-300 hover:bg-[#2a1206]"
         >
           View Details

@@ -1,15 +1,106 @@
+"use client";
+
+import { useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
+
+import { useRouter } from "next/navigation";
+
 import { cinzel } from "@/app/fonts";
+
 import { FaGoogle } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 
+import { toast } from "sonner";
+
+import { authClient } from "@/lib/auth-client";
+
+
+
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+  const validate = () => {
+    const newErrors = {
+      email: "",
+      password: "",
+    };
+
+    let isValid = true;
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    }
+
+    if (!formData.password.trim()) {
+      newErrors.password = "Password is required";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+
+    return isValid;
+  };
+
+  const onSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (!validate()) return;
+
+    try {
+      setLoading(true);
+
+      const { data, error } =
+        await authClient.signIn.email({
+          email: formData.email,
+          password: formData.password,
+          callbackURL: "/",
+        });
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      if (data) {
+        toast.success("Login Successfully.");
+
+        router.push("/");
+        router.refresh();
+      }
+    } catch {
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
+
   return (
     <section className="min-h-screen bg-[#f6f3ef] px-4 py-8 lg:px-8 lg:py-10">
       <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl overflow-hidden rounded-[32px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] lg:grid-cols-2">
-        
+
         {/* Left Side */}
         <div className="relative hidden lg:block">
           <Image
@@ -84,8 +175,10 @@ export default function LoginPage() {
 
             {/* Form */}
 
-            <form className="mt-10 space-y-6">
-
+            <form
+              onSubmit={onSubmit}
+              className="mt-10 space-y-6"
+            >
               {/* Email */}
 
               <div>
@@ -97,11 +190,32 @@ export default function LoginPage() {
                   <MdEmail className="text-xl text-gray-500" />
 
                   <input
+                    name="email"
                     type="email"
                     placeholder="Enter your email"
+                    value={formData.email}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        email: e.target.value,
+                      });
+
+                      if (errors.email) {
+                        setErrors({
+                          ...errors,
+                          email: "",
+                        });
+                      }
+                    }}
                     className="w-full bg-transparent px-3 py-4 outline-none"
                   />
                 </div>
+
+                {errors.email && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.email}
+                  </p>
+                )}
               </div>
 
               {/* Password */}
@@ -117,19 +231,41 @@ export default function LoginPage() {
                   <RiLockPasswordFill className="text-xl text-gray-500" />
 
                   <input
+                    name="password"
                     type="password"
                     placeholder="Enter your password"
+                    value={formData.password}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        password: e.target.value,
+                      });
+
+                      if (errors.password) {
+                        setErrors({
+                          ...errors,
+                          password: "",
+                        });
+                      }
+                    }}
                     className="w-full bg-transparent px-3 py-4 outline-none"
                   />
                 </div>
-              </div>
 
+                {errors.password && (
+                  <p className="mt-2 text-sm text-red-500">
+                    {errors.password}
+                  </p>
+                )}
+              </div>
               {/* Login */}
 
               <button
-                className={`${cinzel.className} w-full rounded-xl bg-[#3b1a08] py-4 text-lg font-semibold text-white transition duration-300 hover:bg-[#2a1206]`}
+                type="submit"
+                disabled={loading}
+                className={`${cinzel.className} w-full rounded-xl bg-[#3b1a08] py-4 text-lg font-semibold text-white transition duration-300 hover:bg-[#2a1206] disabled:cursor-not-allowed disabled:opacity-70`}
               >
-                Login
+                {loading ? "Logging in..." : "Login"}
               </button>
             </form>
 
@@ -147,7 +283,10 @@ export default function LoginPage() {
 
             {/* Google */}
 
-            <button className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition duration-300 hover:bg-gray-100">
+            <button 
+              className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition duration-300 hover:bg-gray-100"
+              onClick={handleGoogleSignIn}
+            >
               <FaGoogle className="text-red-500" />
 
               Continue with Google
