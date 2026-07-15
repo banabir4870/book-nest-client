@@ -16,6 +16,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { toast } from "sonner";
 
 import { authClient } from "@/lib/auth-client";
+import { Button } from "@heroui/react";
 
 
 
@@ -80,6 +81,34 @@ export default function LoginPage() {
 
       if (data) {
         toast.success("Login Successfully.");
+
+        router.push("/");
+        router.refresh();
+      }
+    } catch {
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDemoLogin = async () => {
+    setLoading(true);
+
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: "akash@hossain.com",
+        password: "B123456@r",
+        callbackURL: "/",
+      });
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      if (data) {
+        toast.success("Logged in successfully.");
 
         router.push("/");
         router.refresh();
@@ -267,6 +296,10 @@ export default function LoginPage() {
               >
                 {loading ? "Logging in..." : "Login"}
               </button>
+              <button type="submit" onClick={handleDemoLogin} className={'flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition duration-300 hover:bg-gray-100'}>
+                Login as Demo User
+              </button>
+
             </form>
 
             {/* Divider */}
@@ -283,7 +316,7 @@ export default function LoginPage() {
 
             {/* Google */}
 
-            <button 
+            <button
               className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition duration-300 hover:bg-gray-100"
               onClick={handleGoogleSignIn}
             >
