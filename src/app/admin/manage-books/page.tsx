@@ -194,7 +194,18 @@ export default function AdminManageBooksPage() {
                 placeholder="Search by title or author..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="w-64 rounded-xl border border-gray-300 bg-white py-3 pl-11 pr-4 outline-none transition focus:border-[#3b1a08]"
+                className="
+    w-64
+    rounded-xl
+    border border-gray-300 dark:border-gray-600
+    bg-white dark:bg-gray-800
+    text-gray-900 dark:text-white
+    placeholder:text-gray-500 dark:placeholder:text-gray-400
+    py-3 pl-11 pr-4
+    outline-none
+    transition
+    focus:border-[#3b1a08] dark:focus:border-amber-500
+  "
               />
             </div>
             <button
@@ -266,9 +277,8 @@ export default function AdminManageBooksPage() {
                   books.map((book, idx) => (
                     <tr
                       key={book.id}
-                      className={`border-b border-gray-100 transition hover:bg-orange-50 ${
-                        idx % 2 === 0 ? "bg-white" : "bg-gray-50/40"
-                      }`}
+                      className={`border-b border-gray-100 transition hover:bg-orange-50 ${idx % 2 === 0 ? "bg-white" : "bg-gray-50/40"
+                        }`}
                     >
                       {/* Cover */}
                       <td className="px-4 py-3">
@@ -307,11 +317,10 @@ export default function AdminManageBooksPage() {
                       {/* Quantity */}
                       <td className="px-4 py-3">
                         <span
-                          className={`font-semibold ${
-                            (book.quantity || 0) > 0
-                              ? "text-green-600"
-                              : "text-red-500"
-                          }`}
+                          className={`font-semibold ${(book.quantity || 0) > 0
+                            ? "text-green-600"
+                            : "text-red-500"
+                            }`}
                         >
                           {book.quantity ?? 0}
                         </span>
@@ -357,11 +366,10 @@ export default function AdminManageBooksPage() {
             <button
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((p) => p - 1)}
-              className={`flex items-center gap-2 rounded-xl border px-5 py-3 font-semibold transition ${
-                currentPage === 1
-                  ? "cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400"
-                  : "border-[#3b1a08] text-[#3b1a08] hover:bg-[#3b1a08] hover:text-white"
-              }`}
+              className={`flex items-center gap-2 rounded-xl border px-5 py-3 font-semibold transition ${currentPage === 1
+                ? "cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400"
+                : "border-[#3b1a08] text-[#3b1a08] hover:bg-[#3b1a08] hover:text-white"
+                }`}
             >
               <FaAngleLeft /> Previous
             </button>
@@ -370,11 +378,10 @@ export default function AdminManageBooksPage() {
               <button
                 key={p}
                 onClick={() => setCurrentPage(p)}
-                className={`h-12 w-12 rounded-xl border text-lg font-bold transition ${
-                  currentPage === p
-                    ? "border-[#3b1a08] bg-[#3b1a08] text-white"
-                    : "border-gray-300 bg-white hover:border-[#3b1a08] hover:text-[#3b1a08]"
-                }`}
+                className={`h-12 w-12 rounded-xl border text-lg font-bold transition ${currentPage === p
+                    ? "border-[#3b1a08] bg-[#3b1a08] text-white dark:border-orange-500 dark:bg-orange-500"
+                    : "border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white hover:border-[#3b1a08] dark:hover:border-orange-500 hover:text-[#3b1a08] dark:hover:text-orange-400"
+                  }`}
               >
                 {p}
               </button>
@@ -383,11 +390,10 @@ export default function AdminManageBooksPage() {
             <button
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((p) => p + 1)}
-              className={`flex items-center gap-2 rounded-xl border px-5 py-3 font-semibold transition ${
-                currentPage === totalPages
-                  ? "cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400"
-                  : "border-[#3b1a08] text-[#3b1a08] hover:bg-[#3b1a08] hover:text-white"
-              }`}
+              className={`flex items-center gap-2 rounded-xl border px-5 py-3 font-semibold transition ${currentPage === totalPages
+                ? "cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400"
+                : "border-[#3b1a08] text-[#3b1a08] hover:bg-[#3b1a08] hover:text-white"
+                }`}
             >
               Next <FaAngleRight />
             </button>

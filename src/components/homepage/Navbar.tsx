@@ -48,7 +48,7 @@ const Navbar = () => {
 
 
   return (
-    <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md">
 
       <div className="mx-auto flex py-2 w-10/12 items-center justify-between">
 
@@ -66,7 +66,7 @@ const Navbar = () => {
 
           <div>
             <h2 className="text-2xl font-extrabold">
-              <span className={cinzel.className}>
+              <span className={`${cinzel.className} text-[#3b1a08] dark:text-white`}>
                 Book
               </span>
 
@@ -99,7 +99,7 @@ const Navbar = () => {
                 ${
                   isActive(link.href)
                   ? "text-orange-500 font-extrabold border-b-2 border-orange-500"
-                  : "hover:text-[#3b1a08] hover:font-extrabold"
+                  : "text-gray-800 dark:text-gray-200 hover:text-[#3b1a08] dark:hover:text-orange-400 hover:font-extrabold"
                 }
               `}
             >
@@ -121,7 +121,7 @@ const Navbar = () => {
                 ${
                   pathname.includes("/admin")
                   ? "text-orange-500 font-extrabold border-b-2 border-orange-500"
-                  : "hover:text-[#3b1a08]"
+                  : "text-gray-800 dark:text-gray-200 hover:text-[#3b1a08] dark:hover:text-orange-400"
                 }
                 `}
               >
@@ -145,7 +145,7 @@ const Navbar = () => {
                   ${
                     pathname.includes("add-book")
                     ? "text-orange-500 font-extrabold border-b-2 border-orange-500"
-                    : "hover:text-[#3b1a08]"
+                    : "text-gray-800 dark:text-gray-200 hover:text-[#3b1a08] dark:hover:text-orange-400"
                   }
                   `}
                 >
@@ -161,7 +161,7 @@ const Navbar = () => {
                   ${
                     pathname.includes("my-books")
                     ? "text-orange-500 font-extrabold border-b-2 border-orange-500"
-                    : "hover:text-[#3b1a08]"
+                    : "text-gray-800 dark:text-gray-200 hover:text-[#3b1a08] dark:hover:text-orange-400"
                   }
                   `}
                 >

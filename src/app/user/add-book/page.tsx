@@ -87,9 +87,8 @@ const InputField = ({
   <div>
     <label className="mb-2 block font-semibold text-gray-700">{label}</label>
     <div
-      className={`flex items-center rounded-xl border bg-gray-50 px-4 transition focus-within:border-[#3b1a08] ${
-        error ? "border-red-400" : "border-gray-200"
-      }`}
+      className={`flex items-center rounded-xl border bg-gray-50 px-4 transition focus-within:border-[#3b1a08] ${error ? "border-red-400" : "border-gray-200"
+        }`}
     >
       <span className="text-gray-400 text-lg">{icon}</span>
       <input
@@ -291,17 +290,20 @@ export default function AddBookPage() {
             {/* Form */}
             <form onSubmit={onSubmit} className="mt-8 space-y-5">
 
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 placeholder:text-gray-500 dark:placeholder:text-gray-400">
                 <InputField name="title" label="Book Title" icon={<FaBook />} placeholder="Enter book title" value={formData.title} onChange={handleChange} error={errors.title} />
                 <InputField name="author" label="Author" icon={<FaUser />} placeholder="Author name" value={formData.author} onChange={handleChange} error={errors.author} />
               </div>
 
               {/* Category */}
               <div>
-                <label className="mb-2 block font-semibold text-gray-700">Category</label>
-                <div className={`flex items-center rounded-xl border bg-gray-50 px-4 transition focus-within:border-[#3b1a08] ${errors.category ? "border-red-400" : "border-gray-200"}`}>
+                <label className="mb-2 block font-semibold text-gray-700 dark:text-gray-300">Category</label>
+                <div className={`flex items-center rounded-xl border bg-gray-50 dark:bg-gray-700 px-4 transition focus-within:border-[#3b1a08] dark:focus-within:border-orange-500 ${errors.category
+                  ? "border-red-400"
+                  : "border-gray-200 dark:border-gray-600"
+                  }`}>
                   <FaTag className="text-gray-400" />
-                  <select name="category" value={formData.category} onChange={handleChange} className="w-full bg-transparent px-3 py-3.5 outline-none text-sm">
+                  <select name="category" value={formData.category} onChange={handleChange} className="w-full bg-transparent px-3 py-3.5 outline-none text-sm text-gray-900 dark:text-white">
                     <option value="">Select a category</option>
                     {CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -311,32 +313,37 @@ export default function AddBookPage() {
                 {errors.category && <p className="mt-1.5 text-xs text-red-500">{errors.category}</p>}
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 placeholder:text-gray-500 dark:placeholder:text-gray-400">
                 <InputField name="price" label="Price (৳)" icon={<FaDollarSign />} type="number" placeholder="e.g. 499" value={formData.price} onChange={handleChange} error={errors.price} />
                 <InputField name="rating" label="Rating (0–5)" icon={<FaStar />} type="number" placeholder="e.g. 4.5" value={formData.rating} onChange={handleChange} error={errors.rating} />
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 placeholder:text-gray-500 dark:placeholder:text-gray-400">
                 <InputField name="publisher" label="Publisher" icon={<FaBuilding />} placeholder="Publisher name" value={formData.publisher} onChange={handleChange} error={errors.publisher} />
                 <InputField name="published" label="Published Year" icon={<FaCalendarAlt />} type="number" placeholder="e.g. 2024" value={formData.published} onChange={handleChange} error={errors.published} />
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 placeholder:text-gray-500 dark:placeholder:text-gray-400">
                 <InputField name="language" label="Language" icon={<FaGlobe />} placeholder="e.g. English" value={formData.language} onChange={handleChange} error={errors.language} />
                 <InputField name="pages" label="Pages" icon={<FaFileAlt />} type="number" placeholder="Number of pages" value={formData.pages} onChange={handleChange} error={errors.pages} />
               </div>
 
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-5 sm:grid-cols-2 placeholder:text-gray-500 dark:placeholder:text-gray-400">
                 <InputField name="quantity" label="Quantity" icon={<FaLayerGroup />} type="number" placeholder="Stock quantity" value={formData.quantity} onChange={handleChange} error={errors.quantity} />
                 <InputField name="isbn" label="ISBN" icon={<FaBarcode />} placeholder="e.g. 9780735211292" value={formData.isbn} onChange={handleChange} error={errors.isbn} />
               </div>
 
-              <InputField name="image" label="Cover Image URL" icon={<FaImage />} placeholder="https://example.com/cover.jpg" value={formData.image} onChange={handleChange} error={errors.image} />
+              <div className="placeholder:text-gray-500 dark:placeholder:text-gray-400">
+                <InputField name="image" label="Cover Image URL" icon={<FaImage />} placeholder="https://example.com/cover.jpg" value={formData.image} onChange={handleChange} error={errors.image} />
+              </div>
 
               {/* Description */}
               <div>
-                <label className="mb-2 block font-semibold text-gray-700">Description</label>
-                <div className={`flex rounded-xl border bg-gray-50 px-4 py-3 transition focus-within:border-[#3b1a08] ${errors.description ? "border-red-400" : "border-gray-200"}`}>
+                <label className="mb-2 block font-semibold text-gray-700 dark:text-gray-300">Description</label>
+                <div className={`flex rounded-xl border bg-gray-50 dark:bg-gray-700 px-4 py-3 transition focus-within:border-[#3b1a08] dark:focus-within:border-orange-500 ${errors.description
+                  ? "border-red-400"
+                  : "border-gray-200 dark:border-gray-600"
+                  }`}>
                   <FaAlignLeft className="mt-1 shrink-0 text-gray-400" />
                   <textarea
                     name="description"
@@ -344,7 +351,7 @@ export default function AddBookPage() {
                     value={formData.description}
                     onChange={handleChange}
                     rows={4}
-                    className="w-full bg-transparent px-3 outline-none text-sm resize-none"
+                    className="w-full resize-none bg-transparent px-3 outline-none text-sm text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
                 </div>
                 {errors.description && <p className="mt-1.5 text-xs text-red-500">{errors.description}</p>}

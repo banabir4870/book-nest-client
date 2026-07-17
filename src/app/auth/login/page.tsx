@@ -127,8 +127,8 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="min-h-screen bg-[#f6f3ef] px-4 py-8 lg:px-8 lg:py-10">
-      <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl overflow-hidden rounded-[32px] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.12)] lg:grid-cols-2">
+    <section className="min-h-screen bg-[#f6f3ef] dark:bg-gray-950 px-4 py-8 lg:px-8 lg:py-10">
+      <div className="mx-auto grid min-h-[calc(100vh-80px)] max-w-7xl overflow-hidden rounded-[32px] bg-white dark:bg-gray-900 shadow-[0_20px_60px_rgba(0,0,0,0.12)] lg:grid-cols-2">
 
         {/* Left Side */}
         <div className="relative hidden lg:block">
@@ -176,8 +176,8 @@ export default function LoginPage() {
 
         {/* Right Side */}
 
-        <div className="flex items-center justify-center bg-[#fcfaf8] px-8 py-12 lg:px-14">
-          <div className="w-full max-w-md rounded-3xl border border-gray-100 bg-white p-10 shadow-lg">
+        <div className="flex items-center justify-center bg-[#fcfaf8] dark:bg-gray-900 px-8 py-12 lg:px-14">
+          <div className="w-full max-w-md rounded-3xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-10 shadow-lg">
 
             {/* Logo */}
 
@@ -191,13 +191,13 @@ export default function LoginPage() {
               />
 
               <h2
-                className={`mt-5 text-4xl font-bold text-[#3b1a08] ${cinzel.className}`}
+                className={`mt-5 text-4xl font-bold text-[#3b1a08] dark:text-white ${cinzel.className}`}
               >
                 Book
                 <span className="text-orange-400">Nest</span>
               </h2>
 
-              <p className="mt-3 text-gray-500">
+              <p className="mt-3 text-gray-500 dark:text-gray-400">
                 Welcome back! Login to continue your reading journey.
               </p>
             </div>
@@ -211,7 +211,7 @@ export default function LoginPage() {
               {/* Email */}
 
               <div>
-                <label className="mb-2 block font-semibold text-gray-700">
+                <label className="mb-2 block font-semibold text-gray-700 dark:text-gray-300">
                   Email Address
                 </label>
 
@@ -236,7 +236,7 @@ export default function LoginPage() {
                         });
                       }
                     }}
-                    className="w-full bg-transparent px-3 py-4 outline-none"
+                    className="w-full text-gray-900 bg-transparent px-3 py-4 outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
                 </div>
 
@@ -251,7 +251,7 @@ export default function LoginPage() {
 
               <div>
                 <div className="mb-2 flex items-center justify-between">
-                  <label className="font-semibold text-gray-700">
+                  <label className="font-semibold text-gray-700 dark:text-gray-300">
                     Password
                   </label>
                 </div>
@@ -277,7 +277,7 @@ export default function LoginPage() {
                         });
                       }
                     }}
-                    className="w-full bg-transparent px-3 py-4 outline-none"
+                    className="w-full text-gray-900 bg-transparent px-3 py-4 outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
                 </div>
 
@@ -296,7 +296,7 @@ export default function LoginPage() {
               >
                 {loading ? "Logging in..." : "Login"}
               </button>
-              <button type="submit" onClick={handleDemoLogin} className={'flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition duration-300 hover:bg-gray-100'}>
+              <button type="submit" onClick={handleDemoLogin} className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-4 font-semibold transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-600">
                 Login as Demo User
               </button>
 
@@ -317,7 +317,7 @@ export default function LoginPage() {
             {/* Google */}
 
             <button
-              className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition duration-300 hover:bg-gray-100"
+              className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-4 font-semibold transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-600"
               onClick={handleGoogleSignIn}
             >
               <FaGoogle className="text-red-500" />

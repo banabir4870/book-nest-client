@@ -125,10 +125,10 @@ export default function RegisterPage() {
   };
 
   const handleGoogleSignIn = async () => {
-        await authClient.signIn.social({
-            provider: "google",
-        });
-    };
+    await authClient.signIn.social({
+      provider: "google",
+    });
+  };
 
   return (
     <section className="min-h-screen bg-[#f6f3ef] px-4 py-8 lg:px-8 lg:py-10">
@@ -285,7 +285,7 @@ export default function RegisterPage() {
                     placeholder="Enter your full name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full bg-transparent px-3 py-4 outline-none"
+                    className="w-full bg-transparent text-gray-900 px-3 py-4 outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
 
                 </div>
@@ -316,7 +316,7 @@ export default function RegisterPage() {
                     placeholder="Enter your email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full bg-transparent px-3 py-4 outline-none"
+                    className="w-full bg-transparent text-gray-900 px-3 py-4 outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
 
                 </div>
@@ -347,7 +347,7 @@ export default function RegisterPage() {
                     placeholder="Paste your photo URL"
                     value={formData.photo}
                     onChange={handleChange}
-                    className="w-full bg-transparent px-3 py-4 outline-none"
+                    className="w-full bg-transparent text-gray-900 px-3 py-4 outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
 
                 </div>
@@ -377,7 +377,7 @@ export default function RegisterPage() {
                     placeholder="Create a password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="w-full bg-transparent px-3 py-4 outline-none"
+                    className="w-full bg-transparent text-gray-800 px-3 py-4 outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
 
                 </div>
@@ -424,7 +424,7 @@ export default function RegisterPage() {
 
             <button
               type="button"
-              className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 py-4 font-semibold transition hover:bg-gray-100"
+              className="flex w-full items-center justify-center gap-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-4 font-semibold transition duration-300 hover:bg-gray-100 dark:hover:bg-gray-600"
               onClick={handleGoogleSignIn}
             >
 

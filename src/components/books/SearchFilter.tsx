@@ -60,7 +60,16 @@ const SearchFilter = ({
             placeholder="Search by title or author..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-12 pr-4 outline-none transition focus:border-[#3b1a08]"
+            className="
+    w-full rounded-xl
+    border border-gray-300 dark:border-gray-600
+    bg-gray-50 dark:bg-gray-800
+    text-gray-900 dark:text-white
+    placeholder:text-gray-500 dark:placeholder:text-gray-400
+    py-3 pl-12 pr-4
+    outline-none transition
+    focus:border-[#3b1a08] dark:focus:border-amber-500
+  "
           />
 
         </div>
@@ -70,34 +79,26 @@ const SearchFilter = ({
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-[#3b1a08]"
+          className="
+    rounded-xl
+    border border-gray-300 dark:border-gray-600
+    bg-gray-50 dark:bg-gray-800
+    text-gray-900 dark:text-white
+    px-4 py-3
+    outline-none
+    focus:border-[#3b1a08] dark:focus:border-amber-500
+  "
         >
           <option value="All">All Categories</option>
-
           <option value="Programming">Programming</option>
-
           <option value="Business">Business</option>
-
           <option value="Fantasy">Fantasy</option>
-
           <option value="Science">Science</option>
-
           <option value="Novel">Novel</option>
-
           <option value="History">History</option>
-
-          <option value="Self Development">
-            Self Development
-          </option>
-
-          <option value="Productivity">
-            Productivity
-          </option>
-
-          <option value="Thriller">
-            Thriller
-          </option>
-
+          <option value="Self Development">Self Development</option>
+          <option value="Productivity">Productivity</option>
+          <option value="Thriller">Thriller</option>
         </select>
 
         {/* Price */}
@@ -105,24 +106,24 @@ const SearchFilter = ({
         <select
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-[#3b1a08]"
+          className="
+    rounded-xl
+    border border-gray-300 dark:border-gray-600
+    bg-gray-50 dark:bg-gray-800
+    text-gray-900 dark:text-white
+    px-4 py-3
+    outline-none
+    transition
+    focus:border-[#3b1a08] dark:focus:border-amber-500
+  "
         >
-          <option value="All">
-            All Prices
-          </option>
+          <option value="All">All Prices</option>
 
-          <option value="500">
-            Under ৳500
-          </option>
+          <option value="500">Under ৳500</option>
 
-          <option value="1000">
-            ৳500 - ৳1000
-          </option>
+          <option value="1000">৳500 - ৳1000</option>
 
-          <option value="1001">
-            Above ৳1000
-          </option>
-
+          <option value="1001">Above ৳1000</option>
         </select>
 
       </div>
@@ -140,36 +141,35 @@ const SearchFilter = ({
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="rounded-xl border border-gray-300 bg-gray-50 px-4 py-3 outline-none focus:border-[#3b1a08]"
+            className="rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-800 outline-none transition duration-200 focus:border-[#3b1a08] focus:ring-2 focus:ring-[#3b1a08]/20"
           >
-            <option value="default">
+            <option value="default" className="bg-white text-gray-800">
               Default
             </option>
 
-            <option value="rating">
+            <option value="rating" className="bg-white text-gray-800">
               Highest Rating
             </option>
 
-            <option value="low">
+            <option value="low" className="bg-white text-gray-800">
               Price Low → High
             </option>
 
-            <option value="high">
+            <option value="high" className="bg-white text-gray-800">
               Price High → Low
             </option>
 
-            <option value="newest">
+            <option value="newest" className="bg-white text-gray-800">
               Newest
             </option>
 
-            <option value="az">
+            <option value="az" className="bg-white text-gray-800">
               A → Z
             </option>
 
-            <option value="za">
+            <option value="za" className="bg-white text-gray-800">
               Z → A
             </option>
-
           </select>
 
         </div>

@@ -60,7 +60,7 @@ const BookCard = ({ book }: Props) => {
 
         <div className="mt-5 flex items-center justify-between">
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 dark:text-gray-900">
 
             <FaStar className="text-yellow-400" />
 
